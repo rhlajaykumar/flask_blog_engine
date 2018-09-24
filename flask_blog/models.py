@@ -1,6 +1,6 @@
 from datetime import datetime
 # login manager manges the user session
-from flask_tutorial import db, login_manager
+from flask_blog import db, login_manager
 # to provide fuctionality like is_user_active, etc
 from flask_login import UserMixin
 

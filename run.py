@@ -1,4 +1,4 @@
-from flask_tutorial import app
+from flask_blog import app
 
 
 if __name__ == "__main__":

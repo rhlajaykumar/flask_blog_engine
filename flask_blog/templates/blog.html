@@ -3,7 +3,7 @@
     <form method='POST' action=''>
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend>Write a Blog</legend>
+            <legend>Add new post</legend>
             <div class="form-item">
                 {{ form.title.label(class="form-label") }}
                 {% if form.title.errors %}
@@ -35,4 +35,15 @@
             {{ form.submit(class="register-btn") }}
         </div> 
     </form>
-{% endblock content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="post-info">
+                <h3>Author: {{ post.author.username }}</h3>
+                <p>Created on: {{ post.date_posted }} <p>
+            </div>
+            <h3 class="post-title">{{ post.title }}:</h3>
+            <p class="post-content">{{ post.content }}</p>
+            <a href="{{ url_for("remove_post", post_id=post.id) }}" class="delete-post"> Delete</a>
+        </div>
+    {% endfor %}
+{% endblock content %}}

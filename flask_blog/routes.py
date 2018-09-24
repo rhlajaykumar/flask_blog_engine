@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
-from flask_tutorial.forms import RegistrationForm, LoginForm, UpdateAccountForm, BlogPostForm
-from flask_tutorial.models import User, Post
-from flask_tutorial import app, db, bcrypt
+from flask_blog.forms import RegistrationForm, LoginForm, UpdateAccountForm, BlogPostForm
+from flask_blog.models import User, Post
+from flask_blog import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -18,7 +18,7 @@ posts = [
 @app.route('/')
 @app.route('/home')
 def home():
-    posts = current_user.posts
+    posts = Post.query.all()
     return render_template("home.html", posts=posts)
 
 
@@ -80,10 +80,24 @@ def account():
     return render_template('account.html', title='Accoont', image_file=image_file, form=form)
 
 @app.route('/blog', methods=['GET', 'POST'])
+@login_required
 def blog():
     form  = BlogPostForm()
+    posts = current_user.posts
     if form.validate_on_submit():
         post = Post(title=form.title.data, content=form.content.data, user_id=current_user.id)
         db.session.add(post)
         db.session.commit()
-    return render_template('blog.html', title="Blog", form=form)
+        return redirect(url_for('blog'))
+    return render_template('blog.html', title="Blog", form=form, posts=posts)
+
+@app.route('/remove/<post_id>')
+def remove_post(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if post.user_id == current_user.id:
+        Post.query.filter_by(id=post_id).delete()
+        db.session.commit()
+        return redirect(url_for('blog'))
+    else:
+        flash("post cannot be deleted", "danger")
+    return redirect(url_for('blog'))

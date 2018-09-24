@@ -20,8 +20,10 @@
         <div id="navbar">
             <ul class="navbar-left">
                 <li class="nav-item"><a href="{{ url_for('home') }}">Home</a></li>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item"><a href="{{ url_for('blog') }}">Blogs</a></li>
+                {% endif %}
                 <li class="nav-item"><a href="{{ url_for('about') }}">About</a></li>
-                <li class="nav-item"><a href="{{ url_for('blog') }}">Blogs</a></li>
             </ul>
             <ul class="navbar-right">
                 {% if current_user.is_authenticated %}

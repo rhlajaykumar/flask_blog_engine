@@ -22,4 +22,4 @@ login_manager = LoginManager(app)
 # inorder to redirect to login page if the page to access requres user tobe logged in
 login_manager.login_view = 'login'
 
-from flask_tutorial import routes
+from flask_blog import routes
