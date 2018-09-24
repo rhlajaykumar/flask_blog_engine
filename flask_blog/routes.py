@@ -1,24 +1,15 @@
 from flask import render_template, url_for, flash, redirect, request
-from flask_blog.forms import RegistrationForm, LoginForm, UpdateAccountForm, BlogPostForm
+from flask_blog.forms import RegistrationForm, LoginForm, UpdateAccountForm, BlogPostForm, UpdatePostForm
 from flask_blog.models import User, Post
 from flask_blog import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-posts = [
-    {'author': 'ajay',
-     'date': '10/10/3300',
-     'lang': 'nihongo'},
-    {'author': 'kumar',
-     'date': '10/10/2300',
-     'lang': 'nihongo wa wakarimasen'}
-]
-
 
 @app.route('/')
 @app.route('/home')
 def home():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.date_posted.desc()).all()
     return render_template("home.html", posts=posts)
 
 
@@ -67,7 +58,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route('/account')
+@app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
@@ -80,13 +71,14 @@ def account():
     elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static', filename="profile_pics/"+current_user.image)
+    image_file = url_for('static', filename=current_user.image)
     return render_template('account.html', title='Accoont', image_file=image_file, form=form)
 
 
 @app.route('/blog', methods=['GET', 'POST'])
 @login_required
 def blog():
+    image_file = url_for('static', filename=current_user.image)
     form = BlogPostForm()
     posts = current_user.posts
     if form.validate_on_submit():
@@ -95,10 +87,11 @@ def blog():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('blog'))
-    return render_template('blog.html', title="Blog", form=form, posts=posts)
+    return render_template('blog.html', title="Blog", form=form, posts=posts, image_file=image_file)
 
 
 @app.route('/remove/<post_id>')
+@login_required
 def remove_post(post_id):
     post = Post.query.filter_by(id=post_id).first()
     if post.user_id == current_user.id:
@@ -108,3 +101,18 @@ def remove_post(post_id):
     else:
         flash("post cannot be deleted", "danger")
     return redirect(url_for('blog'))
+
+@app.route('/update/<post_id>', methods=['GET', 'POST'])
+@login_required
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    form = UpdatePostForm()
+    if post.author == current_user and form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        return redirect(url_for('blog'))
+    elif request.method == "GET":
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template("blog.html", form=form, title="update post")

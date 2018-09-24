@@ -67,3 +67,15 @@ class BlogPostForm(FlaskForm):
         if user:
             raise ValidationError(
                 'That title is taken. Choose a different title')
+
+class UpdatePostForm(FlaskForm):
+    title = StringField("Title", validators=[
+        DataRequired(), Length(min=2, max=20)])
+    content = TextAreaField("Content", validators=[DataRequired()])
+    submit = SubmitField("Update")
+
+    def validate_title(self, title):
+        post = Post.query.filter_by(title=title.data).first()
+        if post in current_user.posts:
+            raise ValidationError(
+                'That title is taken. Choose a different title')

@@ -109,7 +109,7 @@ a{
 }
 
 .post {
-    max-width: 400px;
+    max-width: 800px;
     background-color: white;
     margin: 5px auto;
     padding: 5px;
@@ -177,7 +177,7 @@ a{
 /*     account section     */
 
 .content-section {
-    max-width: 400px;
+    max-width: 800px;
     margin: 5px auto;
 
 }
@@ -186,9 +186,36 @@ a{
     padding: 5px;
     margin: 0 0 5px 0;
     background-color: white;
+    position: relative;
+   
 
 }
 
+.content-section .media .media-body{
+    display: inline-block;
+    position: absolute;
+    top: 40%;
+    left: 200px;
+}
+
+img {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    padding: 1px;
+    width: 100px;
+    display: inline-block;
+}
+
+.invalid-form-field {
+    display: block;
+    color: red;
+    height: 16px;
+}
+
+.error-message {
+    display: block;
+    color: red;
+}
 .content-section .update-form {
     
     padding: 5px;
@@ -200,4 +227,20 @@ a{
 .success {
     color: green;
     display: block;
+}
+
+.about-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-card h1{
+    text-transform: capitalize;
+    color: rgb(12, 72, 129);
+    padding: 5px;
+}
+
+.about-card p{
+    color: rgb(66, 66, 66);
+    padding: 0 5px;
 }
