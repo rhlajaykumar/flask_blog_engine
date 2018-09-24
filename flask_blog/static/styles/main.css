@@ -196,3 +196,8 @@ a{
     background-color: white;
 
 }
+
+.success {
+    color: green;
+    display: block;
+}

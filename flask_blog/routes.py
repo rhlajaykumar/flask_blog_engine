@@ -33,8 +33,10 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_pw = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_pw)
+        hashed_pw = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+        user = User(username=form.username.data,
+                    email=form.email.data, password=hashed_pw)
         db.session.add(user)
         db.session.commit()
         flash("Your account has been created!", "success")
@@ -58,10 +60,12 @@ def login():
             flash("Login unsuccessful. Please check email or password", "danger")
     return render_template("login.html", title='login', form=form)
 
+
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
 
 @app.route('/account')
 @login_required
@@ -79,17 +83,20 @@ def account():
     image_file = url_for('static', filename="profile_pics/"+current_user.image)
     return render_template('account.html', title='Accoont', image_file=image_file, form=form)
 
+
 @app.route('/blog', methods=['GET', 'POST'])
 @login_required
 def blog():
-    form  = BlogPostForm()
+    form = BlogPostForm()
     posts = current_user.posts
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, user_id=current_user.id)
+        post = Post(title=form.title.data,
+                    content=form.content.data, user_id=current_user.id)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('blog'))
     return render_template('blog.html', title="Blog", form=form, posts=posts)
+
 
 @app.route('/remove/<post_id>')
 def remove_post(post_id):

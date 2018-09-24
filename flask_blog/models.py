@@ -5,10 +5,11 @@ from flask_blog import db, login_manager
 from flask_login import UserMixin
 
 # registers a session to login manager with the given user id
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
 
 
 # creates a table with table_name lowercase user
