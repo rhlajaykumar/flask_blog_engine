@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <form method='POST' action=''>
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend>Login</legend>
+            <div class="form-item">
+                {{ form.email.label(class="form-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-field invalid-form-field") }}
+                    {% for error in form.email.errors %}
+                        <div>
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.email(class="form-field") }}
+                {% endif %}
+            </div>
+            <div class="form-item">
+                {{ form.password.label(class="form-label") }}
+                {% if form.password.errors %}
+                    {{ form.password(class="form-field invalid-form-field") }}
+                    {% for error in form.password.errors %}
+                        <div>
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.password(class="form-field") }}
+                {% endif %}
+            </div>
+            <div class="form-check">
+                {{ form.remember(class='form-check-input')}}
+                {{ form.remember.label(class='form-check-label')}}
+            </div>
+        </fieldset>   
+        <div class="form-item">
+            {{ form.submit(class="register-btn") }}
+        </div>
+        <small class="form-item">
+            <a href=''>Forgot Password</a>
+        </small>
+        
+    </form>
+    <div class="form-item">
+        <span>Do not have an account? <a href="{{ url_for('register') }}">register</a></span>
+    </div>
+{% endblock content %}

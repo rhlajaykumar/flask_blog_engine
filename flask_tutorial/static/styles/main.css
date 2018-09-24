@@ -1,0 +1,183 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li, form, label,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(245, 245, 245);
+}
+
+.form-group {
+    margin: 5px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+#navbar {
+    display: flex;
+    height: 50px;
+    background-color: rgb(33, 59, 112);
+}
+
+#navbar .navbar-left {
+    list-style: none;
+    display: inline-flex;
+    flex: 2;
+}
+
+#navbar .navbar-right {
+    list-style: none;
+    display: inline-flex;
+    justify-content: right;
+    flex: 1;
+}
+
+
+
+#nav-bar .nav-item {
+    display: inline-block;
+
+}
+
+#navbar ul a{
+    display: block;
+    text-decoration: none;
+    padding: 0 10px;
+    color: white;
+    height: 100%;
+    line-height: 50px;
+
+}
+
+#navbar ul a:hover {
+    color: white;
+    background-color: rgb(22, 42, 82);
+}
+
+/*     home      */
+
+.home-heading {
+    text-align: center;
+    padding: 5px;
+}
+
+.blog {
+    max-width: 400px;
+    background-color: white;
+    margin: 5px auto;
+    padding: 5px;
+}
+
+.blog p {
+    font-size: 14px;
+    color: rgb(46, 46, 46);
+}
+
+
+/*     register and login     */
+
+.form-item .register-btn {
+    margin: 5px;
+    background-color: rgb(57, 93, 165);
+    color: white;
+    border: 0;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.form-item .register-btn:hover {
+    background-color: rgb(35, 63, 119);
+}
+
+.form-item {
+    margin: 5px;
+    display: flex;
+}
+
+.form-item .form-label {
+    flex: 1;
+}
+
+.form-item .form-field {
+    flex: 2;
+}
+
+/*     account section     */
+
+.profile-img {
+    height: 24px;
+    width: 24px;
+    border-radius: 12px;
+    display: block;
+    margin: 5px auto;
+}
+
+.content-section {
+    max-width: 400px;
+    margin: 5px auto;
+
+}
+.content-section .media{
+    
+    padding: 5px;
+    margin: 0 0 5px 0;
+    background-color: white;
+
+}
+
+.content-section .update-form {
+    
+    padding: 5px;
+    margin: 0 0 5px 0;
+    background-color: white;
+
+}

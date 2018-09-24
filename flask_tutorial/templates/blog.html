@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <form method='POST' action=''>
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend>Write a Blog</legend>
+            <div class="form-item">
+                {{ form.title.label(class="form-label") }}
+                {% if form.title.errors %}
+                    {{ form.title(class="form-field invalid-form-field") }}
+                    {% for error in form.title.errors %}
+                        <div>
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.title(class="form-field") }}
+                {% endif %}
+            </div>
+            <div class="form-item">
+                {{ form.content.label(class="form-label") }}
+                {% if form.content.errors %}
+                    {{ form.content(class="form-field invalid-form-field") }}
+                    {% for error in form.content.errors %}
+                        <div>
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.content(class="form-field") }}
+                {% endif %}
+            </div>
+        </fieldset>   
+        <div class="form-item">
+            {{ form.submit(class="register-btn") }}
+        </div> 
+    </form>
+{% endblock content %}
