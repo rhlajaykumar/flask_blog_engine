@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '1e9f1b48c53261cf4563d4ea5670657b'
 
 # mysqlconnector is necessary it provides a medium of communication between sqlalchemy and mysql db
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://dbuser:password@localhost/flask_blog_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://dev:dev@localhost/flask_blog_db'
 
 db = SQLAlchemy(app)
 
