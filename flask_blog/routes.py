@@ -3,13 +3,33 @@ from flask_blog.forms import RegistrationForm, LoginForm, UpdateAccountForm, Blo
 from flask_blog.models import User, Post
 from flask_blog import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
+from elasticsearch import Elasticsearch
 
+ES_HOST = {"host": "localhost", "port": 9200}
+es = Elasticsearch(hosts=[ES_HOST])
 
 
 @app.route('/')
 @app.route('/home')
 def home():
     posts = Post.query.order_by(Post.date_posted.desc()).all()
+
+    submit = request.args.get('btn')
+    q = request.args.get('input')
+
+    if submit == 'search':
+        my_posts = []
+        result = es.search(index='post', doc_type='post', body={
+                            'query': {'match': {'content': q}}})
+        if result:
+            for results in result['hits']['hits']:
+                id = results['_id']
+                post = Post.query.get(id)
+                if post != None:
+                    my_posts.append(post)
+        if len(my_posts) == 0:
+            flash("Search Returned Nothing", "info")
+        return render_template('home.html', posts=my_posts)
     return render_template("home.html", posts=posts)
 
 
@@ -86,6 +106,8 @@ def blog():
                     content=form.content.data, user_id=current_user.id)
         db.session.add(post)
         db.session.commit()
+        es.index(index='post', doc_type='post', id=post.id,
+               body={'content': post.content})
         return redirect(url_for('blog'))
     return render_template('blog.html', title="Blog", form=form, posts=posts, image_file=image_file)
 

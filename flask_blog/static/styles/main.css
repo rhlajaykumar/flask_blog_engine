@@ -71,7 +71,7 @@ a{
 #navbar .navbar-left {
     list-style: none;
     display: inline-flex;
-    flex: 2;
+    flex: 1;
 }
 
 #navbar .navbar-right {
@@ -99,6 +99,12 @@ a{
 #navbar ul a:hover {
     color: white;
     background-color: rgb(22, 42, 82);
+}
+
+.navbar-right .inside-aside, 
+.navbar-right .form-group {
+    display: inline-block;
+
 }
 
 /*     home      */

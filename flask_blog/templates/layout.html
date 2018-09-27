@@ -35,6 +35,17 @@
                 {% endif %}
             </ul>
         </div>
+        <form class="inside-aside" action="\home" method="GET">
+            <fieldset>
+                <div class="form-group">
+                    <input type="search" placeholder="Search here.." class="form-control form-control-lg"
+                        name="input">
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <button type="submit" class="search-button" name="btn" value="search">Search</button>
+            </div>
+        </form>
     </header>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

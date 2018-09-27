@@ -3,18 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 # inorder to connect with mysql db
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from elasticsearch import Elasticsearch
 
 
 app = Flask(__name__)
-app.config['ELASTICSEARCH_URL'] = 'http://localhost:9200'
-
-
-def create_app():
-    # ...
-    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
-        if app.config['ELASTICSEARCH_URL'] else None
-
 
 
 # random key for security purpose
