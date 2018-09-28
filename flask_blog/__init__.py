@@ -3,9 +3,16 @@ from flask_sqlalchemy import SQLAlchemy
 # inorder to connect with mysql db
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-
+from celery import Celery
+import os
 
 app = Flask(__name__)
+
+app.config['CELERY_BROKER_URL'] = 'amqp://'
+app.config['CELERY_RESULT_BACKEND'] = 'amqp://'
+
+celery_down = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celery_down.conf.update(app.config)
 
 
 # random key for security purpose

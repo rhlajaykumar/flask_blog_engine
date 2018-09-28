@@ -4,6 +4,7 @@ from flask_blog.models import User, Post
 from flask_blog import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 from elasticsearch import Elasticsearch
+from flask_blog.background_jobs import download_it
 
 ES_HOST = {"host": "localhost", "port": 9200}
 es = Elasticsearch(hosts=[ES_HOST])
@@ -138,3 +139,9 @@ def update_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
     return render_template("blog.html", form=form, title="update post")
+
+
+@app.route("/download/<content>", methods=['GET', 'POST'])
+def downloads(content):
+    download_it.delay(content)
+    return redirect(url_for('home'))

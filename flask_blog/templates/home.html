@@ -9,6 +9,7 @@
             </div>
             <h3 class="post-title">{{ post.title }}:</h3>
             <p class="post-content">{{ post.content }}</p>
+            <a href={{ url_for('downloads', content=post.content) }}>Download</a>
         </div>
     {% endfor %}  
 {% endblock content %}
