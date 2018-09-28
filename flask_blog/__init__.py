@@ -31,3 +31,5 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 from flask_blog import routes
+from flask_blog.errors.handlers import errors 
+app.register_blueprint(errors)

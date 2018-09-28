@@ -16,12 +16,12 @@ def home():
     posts = Post.query.order_by(Post.date_posted.desc()).all()
 
     submit = request.args.get('btn')
-    q = request.args.get('input')
+    search_text = request.args.get('input')
 
     if submit == 'search':
         my_posts = []
         result = es.search(index='post', doc_type='post', body={
-                            'query': {'match': {'content': q}}})
+                            'query': {'match': {'content': search_text}}})
         if result:
             for results in result['hits']['hits']:
                 id = results['_id']
